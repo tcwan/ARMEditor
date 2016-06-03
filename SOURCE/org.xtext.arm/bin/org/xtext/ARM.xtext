@@ -1,0 +1,831 @@
+grammar org.xtext.ARM with org.eclipse.xtext.common.Terminals
+
+generate aRM "http://www.xtext.org/ARM"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+Model:
+	elements+=ARMInstr*
+;
+
+ARMInstr:
+	  Ccode 
+ 	| OperationInstr 
+;
+	
+OperationInstr:
+	add_sub_instr | adrl_adr_instr
+	| mul_3R_instr | mul_4R_instr | mov_instr | shift_instr | clz_instr 
+		| compare_test_instr | logical_instr
+	| branch_instr | mrs_instr    | msr_instr
+	| ldr_str_irpre_instr | ldr_str_spre_instr | ldr_str_irpsot_instr 
+		| ldr_str_rpost_instr | ldm_instr | push_pop_instr | bkpt_instr
+		| svc_instr | swp_instr  
+	| NOP
+;	
+	
+Ccode:
+	( ('\\')? PREPROCESSOR('('?'defined'?'('?expression = variable')'? (('||' | '&&')'defined'?'('?expression2 = variable')'?)*')'?)?)
+	| ('\\')? PREPROCESSOR_DEFINE (expression = variable (expression2 = variable)*)?
+	| PREPROCESSOR_ENDIF | PREPROCESSOR_ELSE
+	| CExtendCode (expression += variable(','('.'|(expression2 += variable)))*)? 
+	| Assembler_Directives_equ (expression += variable(','('.'|(expression2 += variable)))*)? 
+	| Assembler_Directives (expression=variable(','(expression2=variable))*)
+	| Assembler_Directives_macro (expression=definition+ (','(definition=definition))*)
+	| Assember_Directives_type (expression += variable(','(description += description))?)
+	| Assembler_Directives_endm
+	| ARM_Machine_Directives (expression = variable(','(expression2 = variable))*)?
+	| ARM_MACHINE_DIRECTIVES_align (int=myINT | hex=HEX)?
+	| ARM_Machine_Directives_code (arm?='16' | thumb?='32')
+	| ARM_Machine_Directives_syntax ('unified' | 'divided')
+	| ARM_Machine_Directives_save '{'?(reglist+=ID)((','reglist+=ID)|(','reglistNum+=myINT))*'}'?
+	| ARM_Machine_Directives_save '{'? register+=REGISTER (','register+=REGISTER)*'}'?
+	| CExtendasciz (expression = variable)?
+	| ('\\')? CLang (expression = variable)?
+	| label_keyword+=label_keyword
+	| ('\\')? variable_colon | variable_variable
+;
+
+variable_variable:
+	variable+=variable (','variable2+=variable)*
+;
+
+variable_colon:
+	(variable+=ID|variableINT+=myINT) ':'
+;
+
+label_keyword:
+	label+=ID ((variable+=variable | register+=REGISTER) (','(variable2+=variable | register+=REGISTER))*)?
+;
+
+add_sub_instr :
+	(ADD_OP | ADC_OP | ADR_OP | SUB_OP | SBC_OP | RSB_OP | RSC_OP | ADRL_OP)
+			(register+=REGISTER
+				',' register+=REGISTER
+				',' Operand2+=Operand2)
+;
+
+adrl_adr_instr:
+	(ADRL_OP | ADR_OP) (register+=REGISTER ',' (expression+=randomEntry)+)
+;
+
+mul_3R_instr: 
+	(MUL_OP | SMUL_OP | SMULW_OP)
+			 (register+=REGISTER
+			  ',' register+=REGISTER
+			  ',' register+=REGISTER
+			 )
+;
+
+mul_4R_instr: 
+	(MLA_OP | UMULL_OP | UMLAL_OP | SMULL_OP | SMLAL_OP 
+		| MLS_OP | SMLA_OP | SMLAW_OP
+	)
+			 (register+=REGISTER
+			  ',' register+=REGISTER
+			  ',' register+=REGISTER
+			  ',' register+=REGISTER
+			 )
+;
+
+mov_instr:
+	(MOV_OP | MVN_OP) (register+=REGISTER
+			',' Operand2+=Operand2
+	)
+;
+
+shift_instr:
+	(ASR_OP | LSL_OP | LSR_OP | ROR_OP | RRX_OP)
+			 (register+=REGISTER
+		  	  ',' register+=REGISTER
+		  	  ',' rs_sh+=rs_sh
+		  	  )
+;
+
+clz_instr:
+	CLZ_OP (register+=REGISTER 
+		    ',' register+=REGISTER) 
+;
+
+compare_test_instr:
+	(CMP_OP | CMN_OP | TST_OP | TEQ_OP) 
+				(register+=REGISTER 
+				 ','Operand2+=Operand2
+				)
+;
+
+logical_instr:
+	(AND_OP | EOR_OP | ORR_OP | ORN_OP | BIC_OP)
+				(register+=REGISTER
+				(',' register+=REGISTER)?
+				','Operand2+=Operand2
+			   	)
+;
+
+branch_instr:
+	(B_OP | BL_OP | BX_OP | BLX_OP | BXJ_OP)
+			 ((immediate_label+=immediate_label) | 
+			  (register+=REGISTER))
+;
+
+mrs_instr:
+	MRS_OP (register+=REGISTER
+		    ',' PSR_FIELD+=PSR_FIELD_E)
+;
+
+msr_instr:
+	MSR_OP (( APSR_FLAG+=APSR_FLAG_E | PSR_FIELD+=PSR_FIELD_E)
+		    ',' (register+=REGISTER | immediate_label+=immediate_label))
+;
+
+ldr_str_irpre_instr:
+	(LDR_OP | STR_OP) (register+=REGISTER
+					(',''['register+=REGISTER
+						((','('+' | '-')?(register+=REGISTER | immediate_label+=immediate_label)) ?']''!'?)
+							| (','immediate_label+=immediate_label)
+					)
+				(','immediate_label+=immediate_label)?
+				)
+;
+
+ldr_str_spre_instr:
+	(LDR_OP | STR_OP) (register+=REGISTER
+				',''['register+=REGISTER
+				','('+' | '-')?register+=REGISTER
+				','BAREL_SHIFT_REGISTER+=BAREL_SHIFT_REGISTER immediate_label+=immediate_label
+				']'('!')?
+				)
+;
+
+ldr_str_irpsot_instr:
+	(LDR_OP | STR_OP) (register+=REGISTER
+				',''['register+=REGISTER']'
+				',''#'?('+' | '-')?((register+=REGISTER)|immediate_label+=immediate_label)
+			    )
+;
+
+ldr_str_rpost_instr:
+	(LDR_OP | STR_OP) (register+=REGISTER
+				',''['register+=REGISTER']'
+				','('+' | '-')?register+=REGISTER
+				','BAREL_SHIFT_REGISTER+=BAREL_SHIFT_REGISTER immediate_label+=immediate_label
+				)
+;
+
+ldm_instr:
+	(LDM_OP | STM_OP) (register+=REGISTER '!'?
+			',''{'register+=REGISTER('-'register+=REGISTER)?(','register+=REGISTER('-'register+=REGISTER)?)*'}''^'?
+			)	
+;
+
+push_pop_instr:
+	(PUSH_OP | POP_OP)'{'(register+=REGISTER ('+'|'-' register+=REGISTER)?)(','register+=REGISTER ('+'|'-' register+=REGISTER)?)* '}' 
+;
+
+bkpt_instr:
+	('bkpt' | 'BKPT') immediate_label+=immediate_label
+;
+
+swp_instr:
+	(SWP_OP | SWPB_OP) 
+			(register+=REGISTER
+			','register+=REGISTER
+			',''['register+=REGISTER (','immediate_label+=immediate_label)?']'
+			)
+;
+
+svc_instr:
+	SVC_OP (immediate_label+=immediate_label)
+;
+
+ADD_OP:
+	op?=('add' | 'ADD' | ADD_COM)
+;
+
+ADC_OP:
+	op?=('adc' | 'ADC' | ADC_COM)
+;
+
+ADR_OP:
+	op?=('adr' | 'ADR' | ADR_COM)
+;
+
+SUB_OP:
+	op?=('sub' | 'SUB' | SUB_COM)
+;
+
+SBC_OP:
+	op?=('sbc' | 'SBC' | SBC_COM)
+;
+
+RSB_OP:
+	op?=('rsb' | 'RSB' | RSB_COM)
+;
+
+RSC_OP:
+	op?=('rsc' | 'RSC' | RSC_COM)
+;
+
+ADRL_OP:
+	op?=('adrl' | 'ADRL' | ADRL_COM)
+;
+
+MUL_OP:
+	op?=('mul' | 'MUL'| MUL_3R_COM)
+;
+
+MLS_OP:
+	op?= ('mls' | 'MLS' | MUL_4R_COM)
+;
+
+MLA_OP:
+	op?=('mla' | 'MLA' | MLA_COM)
+;
+
+UMULL_OP:
+	op?=('umull' | 'UMULL' | UMULL_COM)
+;
+
+UMLAL_OP:
+	op?=('umlal' | 'UMLAL' | UMLAL_COM)
+;
+
+SMULL_OP:
+	op?=('smull' | 'SMULL' | SMULL_COM)
+;
+
+SMLAL_OP:
+	op?=('smlal' | 'SMLAL' | SMLAL_COM)
+;
+
+SMUL_OP:
+	op?=('smul' | 'SMUL' | SMUL_COM)
+;
+
+SMULW_OP:
+	op?=('smulw' | 'SMULW' | SMULW_COM)
+;
+
+SMLA_OP:
+	op?= ('smla' | 'SMLA' | SMLA_COM)
+;
+
+SMLAW_OP:
+	op?=('smlaw' | 'SMLAW' | SMLAW_COM)
+;
+
+MOV_OP:
+	op?=('mov' | 'MOV' | MOV_COM)	
+;
+
+MVN_OP:
+	op?=('mvn' | 'MVN' | MVN_COM)
+;
+
+ASR_OP:
+	op?=('asr' | 'ASR' | ASR_COM)
+;
+
+LSL_OP:
+	op?=('lsl' | 'LSL' | LSL_COM)
+;
+
+LSR_OP:
+	op?=('lsr' | 'LSR' | LSR_COM)
+;
+
+ROR_OP:
+	op?=('ror' | 'ROR' | ROR_COM)
+;
+
+RRX_OP:
+	op?=('rrx' | 'RRX' | RRX_COM)
+;
+
+CLZ_OP:
+	op?=('clz' | 'CLZ' | CLZ_COM)	
+;
+
+CMP_OP:
+	op?=('cmp' | 'CMP' | CMP_COM)
+;
+
+CMN_OP:
+	op?=('cmn' | 'CMN' | CMN_COM)
+;
+
+TST_OP:
+	op?=('tst' | 'TST' | TST_COM)
+;
+
+TEQ_OP:
+	op?=('teq' | 'TEQ' | TEQ_COM)
+;
+
+AND_OP:
+	op?=('and' | 'AND' | AND_COM)
+;
+
+EOR_OP:
+	op?=('eor' | 'EOR' | EOR_COM)
+;
+
+ORR_OP:
+	op?=('orr' | 'ORR' | ORR_COM)
+;
+
+ORN_OP:
+	op?=('orn' | 'ORN' | ORN_COM)
+;
+
+BIC_OP:
+	op?=('bic' | 'BIC' | BIC_COM)
+;
+
+B_OP:
+	op?=('b' | 'B' | B_COM)
+;
+BL_OP:
+	op?=('bl' | 'BL' | BL_COM)
+;
+BX_OP:
+	op?=('bx' | 'BX' | BX_COM)
+;
+BLX_OP:
+	op?=('blx' | 'BLX' | BLX_COM)
+;
+BXJ_OP:
+	op?=('bxj' | 'BXJ' | BXJ_COM)
+;
+
+MRS_OP:
+	op?=('mrs' | 'MRS' | MRS_COM)		
+;
+
+MSR_OP:
+	op?=('msr' | 'MSR' | MSR_COM )	
+;
+
+LDR_OP:
+	op?=('ldr' | 'LDR' | LDR_COM)
+;
+
+STR_OP:
+	op?=('str' | 'STR' | STR_COM)
+;
+
+LDM_OP:
+	op?=('ldm' | 'LDM' | LDM_COM)
+;
+
+STM_OP:
+	op?=('stm' | 'STM' | STM_COM)
+;
+
+PUSH_OP:
+	op?=('push' | 'PUSH' | PUSH_COM)
+;
+
+POP_OP:
+	op?=('pop' | 'POP' | POP_COM)
+;
+
+SWP_OP:
+	op?=('swp'  | 'SWP' | SWP_COM)
+;
+
+SWPB_OP:
+	op?=('swpb' | 'SWPB' | SWPB_COM)
+;
+
+SVC_OP:
+	op?=('svc' | 'SVC' | SVC_COM)
+;
+
+PSR_FIELD_E:
+	op+=PSR_FIELD
+;
+
+APSR_FLAG_E:
+	op+=APSR_FLAG
+;
+
+NOP:
+	op?= ('nop' | 'NOP')
+;
+
+terminal ADD_COM:
+	('add' | 'ADD') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ADC_COM:
+	('adc' | 'ADC') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ADR_COM:
+	('adr' | 'ADR') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal SUB_COM:
+	('sub' | 'SUB') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal SBC_COM:
+	('sbc' | 'SBC') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal RSB_COM:
+	('rsb' | 'RSB') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal RSC_COM:
+	('rsc' | 'RSC') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ADRL_COM:
+	('adrl' | 'ADRL') CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal MUL_3R_COM:
+	('mul' | 'MUL')(CONDITION_SUFFIX)?(('s' | 'S'))?
+;
+
+terminal MUL_4R_COM:
+	('mls' | 'MLS')CONDITION_SUFFIX?
+;
+
+terminal MLA_COM:
+	('mla' | 'MLA')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal UMULL_COM:
+	('umull' | 'UMULL')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal UMLAL_COM:
+	('umlal' | 'UMLAL')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal SMULL_COM:
+	('smull' | 'SMULL')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal SMLAL_COM:
+	('smlal' | 'SMLAL')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal SMUL_COM:
+	('smul' | 'SMUL')XY_LABEL XY_LABEL CONDITION_SUFFIX?
+;
+
+terminal SMULW_COM:
+	('smulw' | 'SMULW')XY_LABEL XY_LABEL CONDITION_SUFFIX?
+;
+
+terminal SMLA_COM:
+	('smla' | 'SMLA')XY_LABEL XY_LABEL CONDITION_SUFFIX?
+;
+
+terminal SMLAW_COM:
+	('smlaw' | 'SMLAW')XY_LABEL XY_LABEL CONDITION_SUFFIX?
+;
+
+terminal MOV_COM:
+	('mov' | 'MOV')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal MVN_COM:
+	('mvn' | 'MVN')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ASR_COM:
+	('asr' | 'ASR')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal LSL_COM:
+	('lsl' | 'LSL')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal LSR_COM:
+	('lsr' | 'LSR')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ROR_COM:
+	('ror' | 'ROR')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal RRX_COM:
+	('rrx' | 'RRX')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal CLZ_COM:
+	('clz' | 'CLZ')CONDITION_SUFFIX?
+;
+
+terminal CMP_COM:
+	('cmp' | 'CMP')CONDITION_SUFFIX?
+;
+
+terminal CMN_COM:
+	('cmn' | 'CMN')CONDITION_SUFFIX?
+;
+
+terminal TST_COM:
+	('tst' | 'TST')CONDITION_SUFFIX?
+;
+
+terminal TEQ_COM:
+	('teq' | 'TEQ')CONDITION_SUFFIX?
+;
+
+terminal AND_COM:
+	('and' | 'AND')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal EOR_COM:
+	('eor' | 'EOR')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ORR_COM:
+	('orr' | 'ORR')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal ORN_COM:
+	('orn' | 'ORN')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal BIC_COM:
+	('bic' | 'BIC')CONDITION_SUFFIX?('s' | 'S')?
+;
+
+terminal B_COM:
+	('b' | 'B')CONDITION_SUFFIX?
+;
+
+terminal BL_COM:
+	('bl' | 'BL')CONDITION_SUFFIX?
+;
+
+terminal BX_COM:
+	('bx' | 'BX')CONDITION_SUFFIX?
+;
+
+terminal BLX_COM:
+	('blx' | 'BLX')CONDITION_SUFFIX?
+;
+
+terminal BXJ_COM:
+	('bxj' | 'BXJ')CONDITION_SUFFIX?
+;
+
+terminal MRS_COM:
+	('mrs' | 'MRS') CONDITION_SUFFIX?
+;
+
+terminal MSR_COM:
+	('msr' | 'MSR') CONDITION_SUFFIX?
+;
+
+terminal LDR_COM:
+	('ldr' | 'LDR')CONDITION_SUFFIX?(XY_LABEL)?
+;
+
+terminal STR_COM:
+	('str' | 'STR')CONDITION_SUFFIX?(XY_LABEL)?
+;
+
+terminal LDM_COM:
+	('ldm' | 'LDM')CONDITION_SUFFIX?ADDRESING_MODE?
+;
+
+terminal STM_COM:
+	('stm' | 'STM')CONDITION_SUFFIX?ADDRESING_MODE?
+;
+
+terminal PUSH_COM:
+	('push' | 'PUSH')CONDITION_SUFFIX?
+;
+
+terminal POP_COM:
+	('pop' | 'POP')CONDITION_SUFFIX?
+;
+
+terminal SWP_COM:
+	('swp' | 'SWP' )CONDITION_SUFFIX? 
+;
+
+terminal SWPB_COM:
+	( 'swpb' | 'SWPB')CONDITION_SUFFIX?
+;
+
+terminal SVC_COM:
+	('svc' | 'SVC')CONDITION_SUFFIX?
+;
+
+terminal PSR_FIELD:
+	PSR ('_' (FIELD)+)?
+;
+
+terminal FIELD:
+	  'c' | 'f' | 's' | 'x' | 'all'
+	| 'C' | 'F' | 'S' | 'X' | 'ALL'
+;
+
+terminal PSR:
+	   'cpsr' | 'spsr' | 'CPSR' | 'SPSR' 
+;
+
+terminal APSR_FLAG:
+	('apsr' | 'APSR') ('_'FLAGS+)?
+;
+
+terminal FLAGS:
+	  'nzcvq' | 'g'| 'NZCVQ' | 'G'
+;
+
+terminal XY_LABEL:
+	'b' | 'bt' |'sb' | 'h' | 'sh'| 'B' | 'BT' | 'SB' | 'H' | 'SH'
+;
+
+terminal CONDITION_SUFFIX:
+	  'eq' | 'ne' | 'cs' | 'hs' | 'cc' 
+	| 'lo' | 'mi' | 'pl' | 'vs' | 'vc'
+	| 'hi' | 'ls' | 'ge' | 'lt' | 'gt'
+	| 'le' | 'al'
+	| 'EQ' | 'NE' | 'CS' | 'HS' | 'CC' 
+	| 'LO' | 'MI' | 'PL' | 'VS' | 'VC'
+	| 'HI' | 'LS' | 'GE' | 'LT' | 'GT'
+	| 'LE' | 'AL'
+;
+
+terminal ADDRESING_MODE:
+	  'ia' | 'fd' | 'ea' | 'ib' | 'ed'
+	| 'fa' | 'da' | 'db'  
+	| 'IA' | 'FD' | 'EA' | 'IB' | 'ED'
+	| 'FA' | 'DA' | 'DB' 
+;
+
+PREPROCESSOR:
+	 hash?=('#')code?=( 'if' | 'elif'    | 'error' | 'pragma'
+	| 'undef' | 'include' | 'ifdef' | 'ifndef'
+	| 'line'  )
+;
+
+PREPROCESSOR_DEFINE:
+	hash?=('#')code?= 'define'	
+;
+
+PREPROCESSOR_ENDIF:
+	hash?= '#' code?='endif'
+;
+
+PREPROCESSOR_ELSE:
+	hash?= '#' code?='else'
+;
+
+CExtendCode:
+	dot?=('.')code?=('extern' | 'data' | 'text'
+	| 'global' | 'end' )
+;
+
+Assembler_Directives_equ:
+	dot?=('.')code?=('equ')
+;
+
+Assembler_Directives:
+	dot?=('.')code?= ('long' | 'word' | 'ascii' )
+;
+
+Assembler_Directives_macro:
+	dot?='.' code?='macro'
+;
+
+Assember_Directives_type:
+	dot?='.' code?='type'
+;
+
+Assembler_Directives_endm:
+	dot?='.' code?='endm'
+;
+
+ARM_Machine_Directives:
+	dot?=('.')code?=('2byte'  | '4byte' | '8byte' | 'arch'
+ 	| 'arch_extension'   | 'arm'   | 'bss'   | 'cantunwind' | 'cpu'
+ 	| 'even' | 'extend'  |'ldouble'| 'fnend' | 'fnstart'
+	| 'force_thumb' | 'fpu' | 'handlerdata'  | 'ltorg' | 'movsp'
+	| 'object_arch' | 'packed'| 'personality'| 'personalityindex' | 'pool'
+	| 'secrel32'    | 'thumb' | 'thumb_func' | 'thumb_set'
+	| 'space' | 'byte') 
+;
+
+ARM_MACHINE_DIRECTIVES_align:
+	dot?=('.')code?='align'
+;
+
+ARM_Machine_Directives_code:
+	dot?=('.') code?= 'code'	
+;
+
+ARM_Machine_Directives_syntax:
+	dot?=('.') code?= 'syntax'
+;
+
+ARM_Machine_Directives_save:
+	dot?=('.') code?= 'save'	
+;
+
+CExtendasciz:
+	dot?=('.')code?='asciz' 
+;
+
+CLang:
+	code?=('title:' | 'prompt:' | 'Content:' | 'main1:' | 'break:'
+	| 'loop:' | 'exit_main:' | 'start:' | 'stop:' | 'START:' | 'STOP:') 
+;
+
+REGISTER:
+	  r0?='r0'  | r1?='r1'  | r2?='r2'  | r3?='r3'  | r4?='r4'  | r5?='r5'  
+	| r6?='r6'  | r7?='r7'  | r8?='r8'  | r9?='r9'  | r10?='r10' | r11?='r11' 
+	| r12?='r12' | r13?='r13' | r14?='r14' | r15?='r15' | rfp?='fp'  | rip?='ip'
+	| rsp?='sp'  | rlr?='lr'  | rpc?='pc'
+	| R001?='R0'  | R01?='R1'  | R02?='R2'  | R03?='R3'  | R04?='R4'  | R05?='R5'  
+	| R06?='R6'  | R07?='R7'  | R08?='R8'  | R09?='R9'  | R010?='R10' | R011?='R11' 
+	| R012?='R12' | R013?='R13' | R014?='R14' | R015?='R15' | R0FP?='FP'  | R0IP?='IP'
+	| R0SP?='SP'  | R0LR?='LR'  | R0PC?='PC'  | ('\\')? ID
+;
+
+BAREL_SHIFT_REGISTER:
+	BAREL_SHIFT_REGISTER ?= ('asr' | 'lsl' | 'lsr' | 'ror'
+							  |  'ASR' | 'LSL' | 'LSR' | 'ROR' | ID)
+;
+
+Operand2:
+	immediate_label | REGISTER (',' opsh+=opsh)?
+;
+
+opsh:
+	('\\')? BAREL_SHIFT_REGISTER (immediate_label+=immediate_label | register+=REGISTER)
+;
+
+immediate_label:
+	literal_numeric+=literal_numeric | 
+	numeric_backward_forward+=numeric_backward_forward |
+	('\\')? (('#'|'='|'$'|'.'|'_')?
+		'('?(label=ID | num2=myINT) 
+			(('|'|'+'|'-'|'*'|'/')+(label2=ID | num=myINT))*
+		')'?)
+;
+
+description:
+	('%'|'#')? (int+=myINT | string+=STRING | description+=ID)
+;
+
+variable:
+	(('('|'#'|'='|'$'|'.'|'_'|'+'|'-'|'*'|'/'|'&'|'\\')*( variableInt = myINT | variableABC = ID | variableString = STRING | variableHex=HEX)')'?) 
+;	
+
+definition:
+	(('('|'#'|'='|'$'|'.'|'_'|'+'|'-'|'*'|'/'|'&'|':'|'\\')*
+		( variableInt = myINT | variableABC = ID | variableString = STRING | variableHex=HEX)
+		(':'|'=' ( defInt = myINT | defABC = ID | defString = STRING | defHex=HEX))?')'?
+	)
+;
+randomEntry:
+	('#'|'='|'$'|'.'|'_'|'+'|'-'|'&')*( entryInt = myINT | entryABC = ID | entryString = STRING | entryHex=HEX)
+;
+
+rs_sh:
+	REGISTER | (BAREL_SHIFT_REGISTER? immediate_label+=immediate_label)
+;
+
+flexible_offset:
+	','(('#'expr=myINT | '#'expr2=ID) | (('-'|'+')? register+=REGISTER (',' BAREL_SHIFT_REGISTER+=BAREL_SHIFT_REGISTER (immediate_label+=immediate_label | num=myINT))?))
+;
+
+literal_numeric:
+	(hex=HEX )| (int=PLUS_MINUS_INT)
+;
+
+numeric_backward_forward:
+	(hex=HEX )| (int=myINT)('f'|'F'|'b'|'B')?
+;
+
+myINT:
+	INT | '16' | '32'
+;
+
+terminal HEX:
+	('='|'#')?('0x' | '&')(('0'..'9')|('a'..'f') | ('A'..'F'))*
+;
+
+terminal PLUS_MINUS_INT:
+	('='|'#')('+'|'-')?INT
+;
+
+terminal SL_COMMENT:
+    ('@'|'//') !('\n'|'\r')* ('\r'? '\n')?
+;
+
+terminal STRING	: 
+			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'0'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' |
+			"'" ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'0'|'"'|"'"|'\\' */ | !('\\'|"'") )* "'"
+; 

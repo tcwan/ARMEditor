@@ -44,5 +44,6 @@ scons.options
 .cproject
 
 # Xtext generated stuff
-*-gen/
+## Disable for initial checkin
+#*-gen/
 #model/

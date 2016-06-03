@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.xtext.arm/src-gen" editDirectory="/org.xtext.arm.edit/src"
+    editorDirectory="/org.xtext.arm.editor/src" modelPluginID="org.xtext.arm" forceOverwrite="true"
+    modelName="ARM" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.xtext.arm.edit"
+    editorPluginID="org.xtext.arm.editor" runtimeVersion="2.11">
+  <genPackages prefix="ARM" basePackage="org.xtext" disposableProviderFactory="true"
+      fileExtensions="S" ecorePackage="ARM.ecore#/">
+    <genClasses ecoreClass="ARM.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Model/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARMInstr"/>
+    <genClasses ecoreClass="ARM.ecore#//OperationInstr"/>
+    <genClasses ecoreClass="ARM.ecore#//Ccode">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Ccode/label_keyword"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//variable_variable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//variable_variable/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//variable_variable/variable2"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//variable_colon">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable_colon/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable_colon/variableINT"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//label_keyword">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//label_keyword/label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//label_keyword/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//label_keyword/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//label_keyword/variable2"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//add_sub_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//add_sub_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//add_sub_instr/Operand2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//add_sub_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//adrl_adr_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//mul_3R_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//mul_3R_instr/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//mul_3R_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//mul_4R_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//mul_4R_instr/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//mul_4R_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//mov_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//mov_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//mov_instr/Operand2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//mov_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//shift_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//shift_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//shift_instr/rs_sh"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//shift_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//clz_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//compare_test_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//compare_test_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//compare_test_instr/Operand2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//compare_test_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//logical_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//logical_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//logical_instr/Operand2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//logical_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//branch_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//branch_instr/immediate_label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//branch_instr/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//branch_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//mrs_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//msr_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ldr_str_irpre_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ldr_str_spre_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ldr_str_irpsot_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ldr_str_rpost_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ldm_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ldm_instr/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ldm_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//push_pop_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//push_pop_instr/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//push_pop_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//bkpt_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//bkpt_instr/immediate_label"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//swp_instr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//swp_instr/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//swp_instr/immediate_label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//swp_instr/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//svc_instr"/>
+    <genClasses ecoreClass="ARM.ecore#//ADD_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ADC_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ADR_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ADR_OP/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//SUB_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SBC_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//RSB_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//RSC_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ADRL_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ADRL_OP/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//MUL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//MLS_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//MLA_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//UMULL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//UMLAL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMULL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMLAL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMUL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMULW_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMLA_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SMLAW_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//MOV_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//MVN_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ASR_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//LSL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//LSR_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ROR_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//RRX_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//CLZ_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//CLZ_OP/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CLZ_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//CMP_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//CMN_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//TST_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//TEQ_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//AND_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//EOR_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ORR_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//ORN_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//BIC_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//B_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//BL_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//BX_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//BLX_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//BXJ_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//MRS_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MRS_OP/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MRS_OP/PSR_FIELD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//MRS_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//MSR_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MSR_OP/APSR_FLAG"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MSR_OP/PSR_FIELD"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MSR_OP/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//MSR_OP/immediate_label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//MSR_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//LDR_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//LDR_OP/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//LDR_OP/immediate_label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//LDR_OP/BAREL_SHIFT_REGISTER"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//LDR_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//STR_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//STR_OP/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//STR_OP/immediate_label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//STR_OP/BAREL_SHIFT_REGISTER"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//STR_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//LDM_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//STM_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//PUSH_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//POP_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SWP_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SWPB_OP"/>
+    <genClasses ecoreClass="ARM.ecore#//SVC_OP">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//SVC_OP/immediate_label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//SVC_OP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//PSR_FIELD_E">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PSR_FIELD_E/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//APSR_FLAG_E">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//APSR_FLAG_E/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//NOP">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//NOP/op"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//PREPROCESSOR">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//PREPROCESSOR/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//PREPROCESSOR/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR/hash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//PREPROCESSOR_DEFINE">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//PREPROCESSOR_DEFINE/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//PREPROCESSOR_DEFINE/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_DEFINE/hash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_DEFINE/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//PREPROCESSOR_ENDIF">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_ENDIF/hash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_ENDIF/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//PREPROCESSOR_ELSE">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_ELSE/hash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//PREPROCESSOR_ELSE/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//CExtendCode">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//CExtendCode/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//CExtendCode/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CExtendCode/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CExtendCode/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Assembler_Directives_equ">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives_equ/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives_equ/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_equ/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_equ/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Assembler_Directives">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Assembler_Directives_macro">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives_macro/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assembler_Directives_macro/definition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_macro/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_macro/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Assember_Directives_type">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assember_Directives_type/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//Assember_Directives_type/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assember_Directives_type/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assember_Directives_type/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Assembler_Directives_endm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_endm/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//Assembler_Directives_endm/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARM_Machine_Directives">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ARM_Machine_Directives/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ARM_Machine_Directives/expression2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARM_MACHINE_DIRECTIVES_align">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_MACHINE_DIRECTIVES_align/int"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_MACHINE_DIRECTIVES_align/hex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_MACHINE_DIRECTIVES_align/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_MACHINE_DIRECTIVES_align/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARM_Machine_Directives_code">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_code/arm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_code/thumb"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_code/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_code/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARM_Machine_Directives_syntax">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_syntax/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_syntax/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//ARM_Machine_Directives_save">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_save/reglist"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_save/reglistNum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//ARM_Machine_Directives_save/register"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_save/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//ARM_Machine_Directives_save/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//CExtendasciz">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//CExtendasciz/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CExtendasciz/dot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CExtendasciz/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//CLang">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//CLang/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//CLang/code"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//REGISTER">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r0"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r3"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r4"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r5"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r6"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r7"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r8"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r9"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r10"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r11"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r12"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r13"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r14"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/r15"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/rfp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/rip"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/rsp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/rlr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/rpc"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R001"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R01"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R02"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R03"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R04"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R05"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R06"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R07"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R08"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R09"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R010"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R011"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R012"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R013"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R014"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R015"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R0FP"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R0IP"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R0SP"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R0LR"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//REGISTER/R0PC"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//REGISTER/opsh"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//BAREL_SHIFT_REGISTER">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//BAREL_SHIFT_REGISTER/BAREL_SHIFT_REGISTER"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//BAREL_SHIFT_REGISTER/register"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//Operand2"/>
+    <genClasses ecoreClass="ARM.ecore#//opsh"/>
+    <genClasses ecoreClass="ARM.ecore#//immediate_label">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//immediate_label/literal_numeric"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//immediate_label/numeric_backward_forward"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//immediate_label/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//immediate_label/num2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//immediate_label/label2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//immediate_label/num"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//description">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//description/int"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//description/string"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//description/description"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable/variableInt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable/variableABC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable/variableString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//variable/variableHex"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//definition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/variableInt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/variableABC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/variableString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/variableHex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/defInt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/defABC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/defString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//definition/defHex"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//randomEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//randomEntry/entryInt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//randomEntry/entryABC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//randomEntry/entryString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//randomEntry/entryHex"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//rs_sh">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//rs_sh/immediate_label"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//flexible_offset">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//flexible_offset/expr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//flexible_offset/expr2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//flexible_offset/register"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//flexible_offset/BAREL_SHIFT_REGISTER"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ARM.ecore#//flexible_offset/immediate_label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//flexible_offset/num"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//literal_numeric">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//literal_numeric/hex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//literal_numeric/int"/>
+    </genClasses>
+    <genClasses ecoreClass="ARM.ecore#//numeric_backward_forward">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//numeric_backward_forward/hex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ARM.ecore#//numeric_backward_forward/int"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
