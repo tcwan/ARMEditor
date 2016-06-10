@@ -22,3 +22,18 @@ Please read the Installation notes for workarounds.
 # WARNING
 The DSL in this version does not build with the latest Xtext versions.
 You can recreate the plugins but trying to build the Xtext grammar from scratch will result in Xtext getting stuck indefinitely.
+
+Note:
+The working version of the ARMEditor plugin was generated using Xtext 2.8.3.v201506010551 in Eclipse Mars Release 4.5.0 on Ubuntu Linux 14.04.3 LTS
+However, it does not appear to build in Xtext 2.10.0.v201605250459 on Eclipse Mars.2 on Mac OS X.
+
+To regenerate the source code, run the GenerateARM.mwe2 in org.xtext.arm using "Run As... MWE2 Workflow".
+(in Mars.2 Xtext 2.10.0, it will hang on the line below:
+36759 [main] INFO  clipse.emf.mwe.utils.GenModelHelper  - Registered GenModel 'http://www.xtext.org/ARM' from 'platform:/resource/org.xtext.arm/model/generated/ARM.genmodel'
+
+To run the plugin (without regenerating the source code) in a test Eclipse environment,
+Open the org.xtext.arm.ui plugin.xml file, and in the Overview tab Testing section, Lauch an Eclipse Application.
+
+To build the plugins, open the org.xtext.arm.ui plugin.xml file, and in the Overview tab,
+follow each step in the Exporting section to generate the plugins. You will need to generate the org.xtext.arm, and org.xtext.arm.ui plugin files.
+
