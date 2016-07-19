@@ -19,6 +19,8 @@ Instructions for installation of the Pre-built Eclipse Plugins are found in the 
 * Note: Mac OS X 10.11 (El Capitan) will trigger a Application is Damaged Issue when the plugin is installed.
 Please read the Installation notes for workarounds.
 
+** Note2: Mac OS X El Capitan 10.11.6 seems to have resolved this issue and will allow launching without disabling Gatekeeper.
+
 # WARNING
 The DSL in this version does not build with the latest Xtext versions.
 You can recreate the plugins but trying to build the Xtext grammar from scratch will result in Xtext getting stuck indefinitely.
